@@ -25,7 +25,7 @@ for file in list_of_files:
 
     if file_dir != "":
         os.makedirs(file_dir, exist_ok=True)
-        logging.info("Making dir {file_dir} for {file_name}")
+        logging.info(f"Making dir {file_dir} for {file_name}")
     
     if (not os.path.exists(file)) or (os.path.getsize(file)==0):
         with open(file, 'w') as f:
@@ -33,4 +33,4 @@ for file in list_of_files:
             logging.info("Making file left")
 
     else:
-        logging.info("File {file} already excist")
+        logging.info(f"File {file} already excist")
