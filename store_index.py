@@ -18,4 +18,4 @@ docs = text_spliter(documents)
 
 embeddings = download_embedding_model()
 
-docsearch = PineconeVectorStore.from_documents(docs, embeddings, index_name="medicalchatbot")
+docsearch = PineconeVectorStore.from_texts([doc.page_content for doc in docs], embeddings, index_name="medicalchatbot")

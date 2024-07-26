@@ -21,10 +21,9 @@ embedding = download_embedding_model()
 
 # Khởi tạo Pinecone
 pc =pinecone.Pinecone(api_key=pinecone_api_key)
-index = pc.Index(name="medicalchatbot",
-                 host="https://medicalchatbot-52q17kl.svc.aped-4627-b74a.pinecone.io")
+index = pc.Index(name="medicalchatbot")
 # Khởi tạo PineconeVectorStore
-doc_search = PineconeVectorStore(index_name="medicalchatbot", embedding=embedding)
+doc_search = PineconeVectorStore.from_existing_index(index_name="medicalchatbot",embedding=embedding)
 
 # Định nghĩa PromptTemplate
 prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
@@ -35,13 +34,12 @@ llm = CTransformers(model="TheBloke/Llama-2-7B-Chat-GGML", model_type="llama",
                     model_file="llama-2-7b-chat.ggmlv3.q4_0.bin")
 
 # Khởi tạo RetrievalQA
-qa = RetrievalQA(
-    retriever=doc_search.as_retriever(),
-    combine_documents_chain="stuff",
+qa=RetrievalQA.from_chain_type(
     llm=llm,
-    combine_documents_chain_kwargs={"prompt": prompt},
-    return_source_documents=True
-)
+    chain_type="stuff",
+    retriever=doc_search.as_retriever(),
+    return_source_documents=True,
+    chain_type_kwargs={"prompt":prompt})
 
 @app.route("/")
 def home():

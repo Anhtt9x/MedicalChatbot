@@ -1,14 +1,15 @@
-from langchain.document_loaders import PyPDFLoader ,DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader , PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
+
 
 def load_data(data):
-    data = DirectoryLoader(data, loader_cls=PyPDFLoader, glob= "*/*.txt")
+    data = DirectoryLoader(data, loader_cls=PyPDFLoader, glob= "*.txt")
     documents = data.load()
     return documents
 
 def text_spliter(data):
-    text_spliter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    text_spliter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=20)
     docs = text_spliter.split_documents(data)
     return docs
 
