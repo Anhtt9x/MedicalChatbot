@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from src.helper import download_embedding_model
 from langchain_pinecone import PineconeVectorStore
 from langchain.chains import RetrievalQA
-from langchain.llms import CTransformers
+from langchain_community.llms import CTransformers
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 import os
@@ -42,6 +42,17 @@ qa=RetrievalQA.from_chain_type(
 @app.route("/")
 def home():
     return render_template("chat.html")
+
+
+@app.route("/get", methods=["GET", "POST"])
+def chat():
+    msg = request.form["msg"]
+    input = msg
+    print(input)
+    result=qa({"query": input})
+    print("Response : ", result["result"])
+    return str(result["result"])
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=False)
