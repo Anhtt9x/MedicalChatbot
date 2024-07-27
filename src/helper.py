@@ -1,7 +1,6 @@
-from langchain_community.document_loaders import DirectoryLoader , PyPDFLoader
+from langchain.document_loaders import DirectoryLoader , PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
-
+from langchain_pinecone import PineconeEmbeddings
 
 def load_data(data):
     data = DirectoryLoader(data, loader_cls=PyPDFLoader, glob= "*.txt")
@@ -14,6 +13,6 @@ def text_spliter(data):
     return docs
 
 def download_embedding_model():
-    embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embedding = PineconeEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2",)
     return embedding
 

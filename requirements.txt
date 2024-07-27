@@ -1,11 +1,10 @@
 ctransformers
 sentence-transformers
-pinecone-client
-langchain
 flask
 pypdf
 python-dotenv
+pinecone-client[grpc]
 langchain-pinecone
+langchain
 langchain-community
-langchain_huggingface
 -e .

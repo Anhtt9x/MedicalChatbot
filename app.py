@@ -10,7 +10,7 @@ import pinecone
 from src.prompt import *
 
 load_dotenv()
-
+os.environ['PINECONE_API_KEY'] = "aa851085-206d-4788-aa69-74176f639ba8"
 app = Flask(__name__)
 
 # Lấy API key từ biến môi trường
@@ -19,9 +19,7 @@ pinecone_api_key = os.getenv("PINECONE_API_KEY")
 # Tải mô hình embedding
 embedding = download_embedding_model()
 
-# Khởi tạo Pinecone
-pc =pinecone.Pinecone(api_key=pinecone_api_key)
-index = pc.Index(name="medicalchatbot")
+
 # Khởi tạo PineconeVectorStore
 doc_search = PineconeVectorStore.from_existing_index(index_name="medicalchatbot",embedding=embedding)
 
