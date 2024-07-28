@@ -5,7 +5,7 @@ import os
 
 
 load_dotenv()
-os.environ['PINECONE_API_KEY'] = "aa851085-206d-4788-aa69-74176f639ba8"
+os.environ['PINECONE_API_KEY'] = ""
 
 
 documents = load_data("data")
