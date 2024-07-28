@@ -10,7 +10,7 @@ import pinecone
 from src.prompt import *
 
 load_dotenv()
-os.environ['PINECONE_API_KEY'] = "aa851085-206d-4788-aa69-74176f639ba8"
+os.environ['PINECONE_API_KEY'] = ""
 app = Flask(__name__)
 
 # Lấy API key từ biến môi trường
